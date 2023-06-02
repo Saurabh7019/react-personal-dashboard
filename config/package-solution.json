@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "react-personal-dashboard-client-side-solution",
+    "id": "9973f73a-25d0-4ce7-8a61-27238f09eac9",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.17.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "react-personal-dashboard description"
+      },
+      "longDescription": {
+        "default": "react-personal-dashboard description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "react-personal-dashboard Feature",
+        "description": "The feature that activates elements of the react-personal-dashboard solution.",
+        "id": "c8a098d4-c26a-4ac5-aea4-41377aaf31f1",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/react-personal-dashboard.sppkg"
+  }
+}
