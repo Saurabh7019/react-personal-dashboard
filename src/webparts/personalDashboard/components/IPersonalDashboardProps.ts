@@ -1,7 +1,7 @@
+import { ServiceScope } from '@microsoft/sp-core-library';
+import { HttpClient } from "@microsoft/sp-http";
 export interface IPersonalDashboardProps {
-  description: string;
-  isDarkTheme: boolean;
-  environmentMessage: string;
   hasTeamsContext: boolean;
-  userDisplayName: string;
+  serviceScope: ServiceScope;
+  httpClient: HttpClient;
 }
