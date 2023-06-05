@@ -2,43 +2,177 @@ import * as React from 'react';
 import styles from './PersonalDashboard.module.scss';
 import { IPersonalDashboardProps } from './IPersonalDashboardProps';
 import { IPersonalDashboardState } from './IPersonalDashboardState';
-import { ITemplateService } from '../services/ITemplateService';
-import { TemplateService } from '../services/TemplateService';
-import ReactHtmlParser from 'react-html-parser';
+import { SharePointService } from '../services/SharePointService';
+import { IListItem } from '../models/IListItem';
 
 export default class PersonalDashboard extends React.Component<IPersonalDashboardProps, IPersonalDashboardState> {
-  constructor(props: IPersonalDashboardProps) {
+  private _widgetIndex: number;
+  private _selectedIndex: number;
+  private _sps: SharePointService;
+
+  public constructor(props: IPersonalDashboardProps) {
     super(props);
+
+    const {
+      widgetSiteUrl
+    } = props;
+
     this.state = {
-      html: null
+      selectedWidgets: [],
+      widgets: []
     };
+    this._sps = new SharePointService(widgetSiteUrl);
   }
 
   public async componentDidMount(): Promise<void> {
-    const {
-      serviceScope
-    } = this.props;
-
-    const template = '<h1>{{title}}</h1><p>{{description}}</p>';
-    const data = {
-      title: 'Hello, Handlebars!',
-      description: 'This is a sample template rendering.',
-    };
-
-    const hbs: ITemplateService = new TemplateService(serviceScope);
-    const html = await hbs.renderTemplate(template, data);
-    this.setState({
-      html
-    });
+    await this._initialize();
   }
 
   public render(): React.ReactElement<IPersonalDashboardProps> {
     return (
       <section className={`${styles.personalDashboard}}`}>
-        <div className={styles.welcome}>
-          {ReactHtmlParser(this.state.html)}
-        </div>
+        <ul className={styles.welcome}>
+          {this.state.widgets.map((widget) => {
+            return <li key={widget.id}> {widget.title}</li>
+          })}
+        </ul>
+        <ul className={styles.welcome}>
+          {this.state.selectedWidgets.map((widget) => {
+            return <li key={widget.id}> {widget.title}</li>
+          })}
+        </ul>
       </section>
     );
+  }
+
+  private _initialize = async (): Promise<void> => {
+    const promises = [
+      this._sps.getOrgWidgets(),
+      this._sps.getSelectedWidgets()
+    ];
+    const [orgWidgets, userSelectedWidgets] = await Promise.all(promises);
+    const selectedWidgetIds = (userSelectedWidgets as string).split(','); //3,6,2
+
+    // initializes an empty object to store the indices of the widget IDs
+    const indices: { [id: string]: number } = {};
+    // populate the indices object with the widget ID as the key and the index as the value
+    selectedWidgetIds.map((id, index) => {
+      indices[id] = index;
+    });
+    // indices - {2: 2, 3: 0, 6: 1}
+
+    const selectedWidgetSet = new Set(selectedWidgetIds);
+    const apps: [IListItem[], IListItem[]] = [
+      (orgWidgets as IListItem[]).filter(({ id }) => selectedWidgetSet.has(id.toString())),
+      (orgWidgets as IListItem[]).filter(({ id }) => !selectedWidgetSet.has(id.toString()))
+    ];
+    apps[0].sort((a, b) => indices[a.id] - indices[b.id]);
+
+    this.setState({
+      selectedWidgets: apps[0],
+      widgets: apps[1]
+    });
+  }
+
+  private _handleSelected = (id: string): void => {
+    const items = this.state.widgets;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].id.toString() === id.toString()) {
+        this._widgetIndex = i;
+      }
+    }
+
+    this.setState({
+      widgets: this.state.widgets.map(widget => {
+        if (widget.id.toString() === id.toString()) {
+          widget.selected = !widget.selected;
+        } else {
+          widget.selected = false;
+        }
+        return widget;
+      })
+    });
+  }
+
+  private _handleUnselected = (id: string): void => {
+    const items = this.state.selectedWidgets;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].id.toString() === id.toString()) {
+        this._selectedIndex = i;
+      }
+    }
+
+    this.setState({
+      selectedWidgets: this.state.selectedWidgets.map(widget => {
+        if (widget.id.toString() === id.toString()) {
+          widget.selected = !widget.selected;
+        } else {
+          widget.selected = false;
+        }
+        return widget;
+      })
+    });
+  }
+
+  private _moveRight = (): void => {
+    const widget: IListItem = this.state.widgets[this._widgetIndex];
+    this.setState({
+      widgets: this.state.widgets.filter((item) => {
+        return item.id.toString() !== widget.id.toString();
+      }),
+      selectedWidgets: [...this.state.selectedWidgets, {
+        id: widget.id.toString(),
+        title: widget.title,
+        icon: widget.icon,
+        clientId: widget.clientId,
+        display: widget.display,
+        error: widget.error,
+        api: widget.api,
+        selected: false
+      }]
+    });
+    this._widgetIndex = -1;
+  }
+
+  private _moveLeft = (): void => {
+    const widget: IListItem = this.state.selectedWidgets[this._selectedIndex];
+    this.setState({
+      widgets: [...this.state.widgets, {
+        id: widget.id.toString(),
+        title: widget.title,
+        icon: widget.icon,
+        clientId: widget.clientId,
+        display: widget.display,
+        error: widget.error,
+        api: widget.api,
+        selected: false
+      }],
+      selectedWidgets: this.state.selectedWidgets.filter((item) => {
+        return item.id.toString() !== widget.id.toString();
+      })
+    });
+    this._selectedIndex = -1;
+  }
+
+  private _reOrder = (isUp: boolean): void => {
+    const items: IListItem[] = isUp ?
+      (this._selectedIndex === 0 ? this.state.selectedWidgets : this._swap(this._selectedIndex, this._selectedIndex - 1)) :
+      (this._selectedIndex === this.state.selectedWidgets.length - 1 ? this.state.selectedWidgets : this._swap(this._selectedIndex, this._selectedIndex + 1));
+    this.setState({
+      selectedWidgets: items
+    });
+  }
+
+  private _swap = (x, y): IListItem[] => {
+    this._selectedIndex = y;
+    const items = this.state.selectedWidgets;
+    const b = items[x];
+    items[x] = items[y];
+    items[y] = b;
+    return items;
+  }
+
+  private _saveSelectedWidgets = async (ids: string[]): Promise<void> => {
+    await this._sps.setSelectedWidgets(ids);
   }
 }

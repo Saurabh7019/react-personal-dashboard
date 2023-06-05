@@ -1,3 +1,3 @@
 export interface ITemplateService {
-    renderTemplate(template: string, data: any): Promise<string>;
+    renderTemplate(template: string, data: object): Promise<string>;
 }

@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "Hosted workbench",
-      "type": "edge",
+      "type": "chrome",
       "request": "launch",
       "url": "https://{tenantDomain}/_layouts/workbench.aspx",
       "webRoot": "${workspaceRoot}",

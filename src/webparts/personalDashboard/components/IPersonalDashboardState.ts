@@ -1,3 +1,6 @@
+import { IListItem } from "../models/IListItem";
+
 export interface IPersonalDashboardState {
-    html: string;
+    selectedWidgets: IListItem[];
+    widgets: IListItem[];
 }
