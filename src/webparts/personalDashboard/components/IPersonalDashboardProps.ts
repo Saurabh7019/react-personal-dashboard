@@ -3,5 +3,4 @@ import { HttpClient } from "@microsoft/sp-http";
 export interface IPersonalDashboardProps {
   hasTeamsContext: boolean;
   serviceScope: ServiceScope;
-  httpClient: HttpClient;
 }
