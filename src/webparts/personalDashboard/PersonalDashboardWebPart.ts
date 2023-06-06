@@ -21,6 +21,7 @@ export default class PersonalDashboardWebPart extends BaseClientSideWebPart<IPer
       PersonalDashboard,
       {
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
+        serviceScope: this.context.serviceScope,
         widgetSiteUrl: this.properties.widgetsSiteUrl
       }
     );

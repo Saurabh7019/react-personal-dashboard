@@ -5,6 +5,7 @@ import { IPersonalDashboardState } from './IPersonalDashboardState';
 import { SharePointService } from '../services/SharePointService';
 import { IListItem } from '../models/IListItem';
 import { Personalize } from './Personalize';
+import { DataFetcherService } from '../services/DataFetcherService';
 
 export default class PersonalDashboard extends React.Component<IPersonalDashboardProps, IPersonalDashboardState> {
   private _widgetIndex: number;
