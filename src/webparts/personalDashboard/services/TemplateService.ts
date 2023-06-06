@@ -1,7 +1,6 @@
-import { ITemplateService } from './ITemplateService';
 import * as Handlebars from 'handlebars';
 
-export class TemplateService implements ITemplateService {
+export class TemplateService {
     private _handlebars: typeof Handlebars;
 
     public constructor() {

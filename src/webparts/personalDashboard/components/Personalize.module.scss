@@ -1,0 +1,111 @@
+@import '~office-ui-fabric-react/dist/sass/References.scss';
+
+.personalizeContainer {
+    text-align: right;
+    background: #fff;
+
+    .customLink {
+        color: "[theme:themeDarker, default:#000]";
+        text-decoration: none;
+        font-size: 12px;
+        cursor: pointer;
+        margin: 0 15px -15px 0;
+
+        i {
+            padding-right: 5px;
+            position: relative;
+        }
+    }
+}
+
+.container {
+    display: table;
+    width: 500px;
+}
+
+.listBox {
+    display: table-row;
+}
+
+.selectable {
+    width: 45%;
+}
+
+.selectionpanel {
+    width: 10%;
+    position: relative;
+}
+
+.selected {
+    width: 45%;
+}
+
+.selectable,
+.selectionpanel,
+.selected {
+    display: table-cell;
+}
+
+ul {
+    list-style: none;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    height: 250px;
+    padding: 0;
+    overflow-y: auto;
+}
+
+ul li {
+    border-bottom: 1px #eee solid;
+    padding: 12px;
+    color: #555;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+ul li:hover {
+    color: #add8e6;
+}
+
+.liSelected {
+    background: "[theme:themeLighterAlt, default:#000]";
+}
+
+.btns {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+}
+
+button {
+    display: block;
+    margin: 10px;
+}
+
+@media (max-width: 900px) {
+    .container {
+        display: block;
+        width: 350px;
+    }
+
+    .listBox,
+    .selectable,
+    .selectionpanel,
+    .selected {
+        display: block;
+        width: 100%;
+        min-height: 100%;
+    }
+
+    .btns {
+        left: 20%;
+        margin: 0;
+        position: relative;
+    }
+
+    button {
+        display: inline-block;
+        margin: 10px;
+    }
+}
