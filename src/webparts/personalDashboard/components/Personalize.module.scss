@@ -21,66 +21,68 @@
 .container {
     display: table;
     width: 500px;
-}
 
-.listBox {
-    display: table-row;
-}
 
-.selectable {
-    width: 45%;
-}
+    .listBox {
+        display: table-row;
+    }
 
-.selectionpanel {
-    width: 10%;
-    position: relative;
-}
+    .selectable {
+        width: 45%;
+    }
 
-.selected {
-    width: 45%;
-}
+    .selectionpanel {
+        width: 10%;
+        position: relative;
+    }
 
-.selectable,
-.selectionpanel,
-.selected {
-    display: table-cell;
-}
+    .selected {
+        width: 45%;
+    }
 
-ul {
-    list-style: none;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    height: 250px;
-    padding: 0;
-    overflow-y: auto;
-}
+    .selectable,
+    .selectionpanel,
+    .selected {
+        display: table-cell;
+    }
 
-ul li {
-    border-bottom: 1px #eee solid;
-    padding: 12px;
-    color: #555;
-    font-size: 14px;
-    cursor: pointer;
-}
+    ul {
+        list-style: none;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        height: 250px;
+        padding: 0;
+        overflow-y: auto;
+    }
 
-ul li:hover {
-    color: #add8e6;
-}
+    ul li {
+        border-bottom: 1px #eee solid;
+        padding: 12px;
+        color: #555;
+        font-size: 14px;
+        cursor: pointer;
+    }
 
-.liSelected {
-    background: "[theme:themeLighterAlt, default:#000]";
-}
+    ul li:hover {
+        color: #add8e6;
+    }
 
-.btns {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    margin: -25px 0 0 -25px;
-}
+    .liSelected {
+        background: "[theme:themeLighterAlt, default:#000]";
+    }
 
-button {
-    display: block;
-    margin: 10px;
+    .btns {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        margin: -25px 0 0 -25px;
+    }
+
+    button {
+        display: block;
+        margin: 10px;
+    }
+
 }
 
 @media (max-width: 900px) {

@@ -11,16 +11,17 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    // justify-content: center;
-    padding-left: 18px;
-    padding-bottom: 18px;
+    justify-content: flex-start;
+    // padding-left: 18px;
+    // padding-bottom: 18px;
 
     .item {
       position: relative;
       margin: 5px;
 
       .header {
-        margin: 5px;
+        background-color: #FFF;
+        margin-top: 10px;
         font-size: 20px;
         font-weight: bold;
         color: "[theme:themeDarker, default:#515D63]";
@@ -37,16 +38,18 @@
         border: 2px solid #EEE;
         width: 330px;
         height: 330px;
-        background-color: #F2F7FB;
+        overflow-y: auto;
       }
 
       .footer {
-        position: absolute;
+        position: static;
         display: table;
         bottom: 0px;
-        width: 100%;
+        width: 99%;
         height: 30px;
-        border-top: 2px solid #EEE;
+        border-width: 0 2px 2px 2px;
+        border-style: none solid solid solid;
+        border-color: transparent #EEE #EEE #EEE;
 
         .text {
           display: table-cell;
@@ -57,9 +60,10 @@
           padding-top: 5px;
           position: relative;
           top: 50%;
-          transform: translate(0, -50%);
           text-align: center;
-          border-right: 1px solid #EEE;
+          &:first-child {
+            border-right: 1px solid #EEE;
+          }
         }
       }
     }

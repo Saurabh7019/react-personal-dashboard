@@ -103,6 +103,14 @@ export const PersonalWidgetRenderer: React.FC<IPersonalWidgetProps> = (props) =>
                     </Shimmer>
                 </div>
             </div>
+            <div className={styles.footer}>
+                <div className={styles.text}>
+                    HELP &nbsp; {'>'}
+                </div>
+                <div className={styles.text}>
+                    VIEW DETAIL &nbsp; {'>'}
+                </div>
+            </div>
         </div>
     );
 }
