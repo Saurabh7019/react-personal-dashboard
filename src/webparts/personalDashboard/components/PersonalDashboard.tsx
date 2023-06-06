@@ -5,7 +5,7 @@ import { IPersonalDashboardState } from './IPersonalDashboardState';
 import { SharePointService } from '../services/SharePointService';
 import { IListItem } from '../models/IListItem';
 import { Personalize } from './Personalize';
-import { DataFetcherService } from '../services/DataFetcherService';
+import { PersonalWidgetRenderer } from './PersonalWidgetRenderer';
 
 export default class PersonalDashboard extends React.Component<IPersonalDashboardProps, IPersonalDashboardState> {
   private _widgetIndex: number;
@@ -32,7 +32,7 @@ export default class PersonalDashboard extends React.Component<IPersonalDashboar
 
   public render(): React.ReactElement<IPersonalDashboardProps> {
     return (
-      <section className={`${styles.personalDashboard}}`}>
+      <div className={styles.personalDashboard} >
         <Personalize
           widgets={this.state.widgets}
           selectedWidgets={this.state.selectedWidgets}
@@ -42,7 +42,15 @@ export default class PersonalDashboard extends React.Component<IPersonalDashboar
           moveWidgetRight={this._moveRight}
           moveWidgetLeft={this._moveLeft}
           saveSelection={this._saveSelectedWidgets} />
-      </section>
+
+        <div className={styles.dashboardContainer}>
+          {this.state.selectedWidgets.map((selectedWidget) => {
+            return (<PersonalWidgetRenderer key={selectedWidget.id}
+              widget={selectedWidget}
+              serviceScope={this.props.serviceScope} />);
+          })}
+        </div>
+      </div >
     );
   }
 
