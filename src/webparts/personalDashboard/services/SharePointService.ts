@@ -26,7 +26,9 @@ export class SharePointService {
                 'AADClientId',
                 'DisplayTemplate',
                 'ErrorTemplate',
-                'ResourceEndpoint'
+                'ResourceEndpoint',
+                'HelpURL',
+                'ViewDetails'
             )
             .orderBy('WidgetTitle', true)
             .getAll();
@@ -40,7 +42,9 @@ export class SharePointService {
                 display: item.DisplayTemplate,
                 error: item.ErrorTemplate,
                 api: item.ResourceEndpoint,
-                selected: false
+                selected: false,
+                help: item.HelpURL,
+                details: item.ViewDetails
             });
         });
 

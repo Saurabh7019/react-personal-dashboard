@@ -58,25 +58,30 @@ export const PersonalWidgetRenderer: React.FC<IPersonalWidgetProps> = (props) =>
         const _apiServiceInstance = serviceScope.consume(DataFetcherService.serviceKey);
         const hbs: TemplateService = new TemplateService();
 
+        if (!widget.api || widget.api === '') {
+            setState({
+                isLoaded: true,
+                results: widget.error,
+            });
+            return;
+        }
+
         try {
             let data;
-            if (widget.api !== null && widget.api !== '') {
-                if (widget.clientId !== null && widget.clientId !== '') {
-                    data = await _apiServiceInstance.executeADSecureAPIRequest(widget.api, widget.clientId);
-                } else {
-                    data = await _apiServiceInstance.executePublicAPIRequest(widget.api);
-                }
-                const html = await hbs.renderTemplate(widget.display, data);
-                setState({
-                    isLoaded: true,
-                    results: html,
-                });
+
+            if (widget.api.indexOf('https://graph.microsoft.com/') === 0) {
+                data = await _apiServiceInstance.executeMSGraphAPIRequest(widget.api);
+            } else if (widget.clientId && widget.clientId !== '') {
+                data = await _apiServiceInstance.executeADSecureAPIRequest(widget.api, widget.clientId);
             } else {
-                setState({
-                    isLoaded: true,
-                    results: widget.error,
-                });
+                data = await _apiServiceInstance.executePublicAPIRequest(widget.api);
             }
+
+            const html = await hbs.renderTemplate(widget.display, data);
+            setState({
+                isLoaded: true,
+                results: html,
+            });
         } catch (error) {
             console.log(error);
             setState({
@@ -85,6 +90,7 @@ export const PersonalWidgetRenderer: React.FC<IPersonalWidgetProps> = (props) =>
             });
         }
     };
+
 
     React.useEffect(() => {
         fetchData(props.widget, props.serviceScope); // eslint-disable-line @typescript-eslint/no-floating-promises
@@ -96,21 +102,27 @@ export const PersonalWidgetRenderer: React.FC<IPersonalWidgetProps> = (props) =>
                 <Icon iconName={props.widget.icon} />
                 {props.widget.title}
             </div>
-            <div className={styles.content}>
+            <div className={`${styles.content} ${props.widget.help || props.widget.details ? '' : styles.contentWithoutFooter}`}>
                 <div className={classNames.wrapper}>
                     <Shimmer width="100%" styles={getShimmerStyles} isDataLoaded={state.isLoaded} >
                         {ReactHtmlParser(state.results)}
                     </Shimmer>
                 </div>
             </div>
-            <div className={styles.footer}>
-                <div className={styles.text}>
-                    HELP &nbsp; {'>'}
+            {(props.widget.help || props.widget.details) && (
+                <div className={styles.footer}>
+                    {props.widget.help && (
+                        <a href={props.widget.help} className={styles.text} rel="noopener noreferrer" target="_blank">
+                            HELP &nbsp; {'>'}
+                        </a>
+                    )}
+                    {props.widget.details && (
+                        <a href={props.widget.details} className={styles.text} rel="noopener noreferrer" target="_blank">
+                            VIEW DETAIL &nbsp; {'>'}
+                        </a>
+                    )}
                 </div>
-                <div className={styles.text}>
-                    VIEW DETAIL &nbsp; {'>'}
-                </div>
-            </div>
+            )}
         </div>
     );
 }

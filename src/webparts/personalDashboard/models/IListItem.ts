@@ -7,4 +7,6 @@ export interface IListItem {
     error?: string;
     api?: string;
     selected: boolean;
+    help?: string;
+    details?: string;
 }

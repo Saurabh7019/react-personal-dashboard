@@ -6,6 +6,7 @@ import { SharePointService } from '../services/SharePointService';
 import { IListItem } from '../models/IListItem';
 import { Personalize } from './Personalize';
 import { PersonalWidgetRenderer } from './PersonalWidgetRenderer';
+import { DataFetcherService } from '../services/DataFetcherService';
 
 export default class PersonalDashboard extends React.Component<IPersonalDashboardProps, IPersonalDashboardState> {
   private _widgetIndex: number;
@@ -28,6 +29,11 @@ export default class PersonalDashboard extends React.Component<IPersonalDashboar
 
   public async componentDidMount(): Promise<void> {
     await this._initialize();
+
+    const _apiServiceInstance = this.props.serviceScope.consume(DataFetcherService.serviceKey);
+    const api = "/me/transitiveMemberOf/microsoft.graph.group?$count=true&$top=3";
+    const myProf = await _apiServiceInstance.executeMSGraphAPIRequest(api);
+    console.log(myProf);
   }
 
   public render(): React.ReactElement<IPersonalDashboardProps> {

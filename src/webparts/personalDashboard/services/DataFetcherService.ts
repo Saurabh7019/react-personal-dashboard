@@ -1,7 +1,8 @@
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
-import { AadHttpClientFactory, AadHttpClient, HttpClient } from '@microsoft/sp-http';
+import { MSGraphClientFactory, MSGraphClientV3, AadHttpClientFactory, AadHttpClient, HttpClient } from '@microsoft/sp-http';
 
 export interface IDataFetcherService {
+    executeMSGraphAPIRequest(api: string): Promise<JSON>;
     executeADSecureAPIRequest(api: string, clientId: string): Promise<JSON>;
     executePublicAPIRequest(api: string): Promise<JSON>;
 }
@@ -10,14 +11,28 @@ export class DataFetcherService implements IDataFetcherService {
 
     public static readonly serviceKey: ServiceKey<IDataFetcherService> = ServiceKey.create<IDataFetcherService>('mpd:IDataFetcherService', DataFetcherService);
 
+    private _msGraphClientFactory: MSGraphClientFactory;
     private _aadHttpClientFactory: AadHttpClientFactory;
     private _httpClient: HttpClient;
 
     public constructor(serviceScope: ServiceScope) {
         serviceScope.whenFinished(() => {
+            this._msGraphClientFactory = serviceScope.consume(MSGraphClientFactory.serviceKey);
             this._aadHttpClientFactory = serviceScope.consume(AadHttpClientFactory.serviceKey);
             this._httpClient = serviceScope.consume(HttpClient.serviceKey);
         });
+    }
+
+    public async executeMSGraphAPIRequest(api: string): Promise<JSON> {
+        try {
+            const client: MSGraphClientV3 = await this._msGraphClientFactory.getClient('3');
+            const response = await client.api(api).get();
+            // complete this code
+            return response;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     }
 
     public async executeADSecureAPIRequest(api: string, clientId: string): Promise<JSON> {

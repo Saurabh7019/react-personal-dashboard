@@ -21,7 +21,7 @@
 
       .header {
         background-color: #FFF;
-        margin-top: 10px;
+        margin: 10px 0 10px 0;
         font-size: 20px;
         font-weight: bold;
         color: "[theme:themeDarker, default:#515D63]";
@@ -38,6 +38,13 @@
         border: 2px solid #EEE;
         width: 330px;
         height: 330px;
+        overflow-y: auto;
+      }
+
+      .contentWithoutFooter {
+        border: 2px solid #EEE;
+        width: 330px;
+        height: 360px;
         overflow-y: auto;
       }
 
@@ -61,9 +68,12 @@
           position: relative;
           top: 50%;
           text-align: center;
+          text-decoration: none;
+
           &:first-child {
             border-right: 1px solid #EEE;
           }
+
         }
       }
     }
