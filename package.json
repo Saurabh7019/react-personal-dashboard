@@ -6,7 +6,8 @@
   "scripts": {
     "build": "gulp bundle",
     "clean": "gulp clean",
-    "test": "gulp test"
+    "test": "gulp test",
+    "serve": "gulp bundle --custom-serve --max_old_space_size=4096 && fast-serve"
   },
   "dependencies": {
     "@microsoft/sp-core-library": "1.15.0",
@@ -14,7 +15,6 @@
     "@microsoft/sp-office-ui-fabric-core": "1.15.0",
     "@microsoft/sp-property-pane": "1.15.0",
     "@microsoft/sp-webpart-base": "1.15.0",
-    "@pnp/sp": "^3.15.0",
     "handlebars": "^4.7.7",
     "office-ui-fabric-react": "7.185.7",
     "react": "16.13.1",
@@ -34,6 +34,7 @@
     "@types/react": "16.9.51",
     "@types/react-dom": "16.9.8",
     "eslint-plugin-react-hooks": "4.3.0",
-    "@microsoft/sp-module-interfaces": "1.15.0"
+    "@microsoft/sp-module-interfaces": "1.15.0",
+    "spfx-fast-serve-helpers": "~1.15.0"
   }
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './PersonalDashboard.module.scss';
 import { IPersonalDashboardProps } from './IPersonalDashboardProps';
 import { IPersonalDashboardState } from './IPersonalDashboardState';
-import { SharePointService } from '../services/SharePointService';
+import { DataFetcherService } from '../services/DataFetcherService';
 import { IListItem } from '../models/IListItem';
 import { Personalize } from './Personalize';
 import { PersonalWidgetRenderer } from './PersonalWidgetRenderer';
@@ -10,20 +10,20 @@ import { PersonalWidgetRenderer } from './PersonalWidgetRenderer';
 export default class PersonalDashboard extends React.Component<IPersonalDashboardProps, IPersonalDashboardState> {
   private _widgetIndex: number;
   private _selectedIndex: number;
-  private _sps: SharePointService;
+  private _apiServiceInstance: DataFetcherService;
 
   public constructor(props: IPersonalDashboardProps) {
     super(props);
 
     const {
-      widgetSiteUrl
+      serviceScope
     } = props;
 
     this.state = {
       selectedWidgets: [],
       widgets: []
     };
-    this._sps = new SharePointService(widgetSiteUrl);
+    this._apiServiceInstance = new DataFetcherService(serviceScope);
   }
 
   public async componentDidMount(): Promise<void> {
@@ -56,8 +56,8 @@ export default class PersonalDashboard extends React.Component<IPersonalDashboar
 
   private _initialize = async (): Promise<void> => {
     const promises = [
-      this._sps.getOrgWidgets(),
-      this._sps.getSelectedWidgets()
+      this._apiServiceInstance.getOrgWidgets(this.props.siteUrl),
+      this._apiServiceInstance.getSelectedWidgets(this.props.userLoginName, this.props.siteUrl)
     ];
     const [orgWidgets, userSelectedWidgets] = await Promise.all(promises);
     const selectedWidgetIds = (userSelectedWidgets as string).split(','); //3,6,2
@@ -182,6 +182,6 @@ export default class PersonalDashboard extends React.Component<IPersonalDashboar
   }
 
   private _saveSelectedWidgets = async (ids: string[]): Promise<void> => {
-    await this._sps.setSelectedWidgets(ids);
+    await this._apiServiceInstance.setSelectedWidgets(this.props.userLoginName, this.props.siteUrl, ids);
   }
 }
