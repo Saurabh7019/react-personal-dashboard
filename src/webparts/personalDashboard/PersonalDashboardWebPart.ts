@@ -13,7 +13,6 @@ export default class PersonalDashboardWebPart extends BaseClientSideWebPart<{}> 
       {
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
         serviceScope: this.context.serviceScope,
-        userLoginName: this.context.pageContext.user.loginName,
         siteUrl: this.context.pageContext.site.absoluteUrl
       }
     );

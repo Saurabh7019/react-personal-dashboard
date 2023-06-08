@@ -57,10 +57,14 @@ export default class PersonalDashboard extends React.Component<IPersonalDashboar
   private _initialize = async (): Promise<void> => {
     const promises = [
       this._apiServiceInstance.getOrgWidgets(this.props.siteUrl),
-      this._apiServiceInstance.getSelectedWidgets(this.props.userLoginName, this.props.siteUrl)
+      this._apiServiceInstance.getMySelectedWidgets()
     ];
     const [orgWidgets, userSelectedWidgets] = await Promise.all(promises);
-    const selectedWidgetIds = (userSelectedWidgets as string).split(','); //3,6,2
+    
+    let selectedWidgetIds: string[] = [];
+    if (userSelectedWidgets) {
+      selectedWidgetIds = (userSelectedWidgets as string).split(',');
+    } //3,6,2
 
     // initializes an empty object to store the indices of the widget IDs
     const indices: { [id: string]: number } = {};
@@ -182,6 +186,6 @@ export default class PersonalDashboard extends React.Component<IPersonalDashboar
   }
 
   private _saveSelectedWidgets = async (ids: string[]): Promise<void> => {
-    await this._apiServiceInstance.setSelectedWidgets(this.props.userLoginName, this.props.siteUrl, ids);
+    await this._apiServiceInstance.setMySelectedWidgets(ids);
   }
 }

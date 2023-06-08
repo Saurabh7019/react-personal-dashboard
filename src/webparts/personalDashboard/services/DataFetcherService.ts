@@ -1,19 +1,13 @@
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
 import { MSGraphClientFactory, MSGraphClientV3, AadHttpClientFactory, AadHttpClient, HttpClient, SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
 import { IListItem } from '../models/IListItem';
-
-export interface IDataFetcherService {
-    getSelectedWidgets(userName: string, baseUrl: string): Promise<string>;
-    getOrgWidgets(baseUrl: string): Promise<IListItem[]>
-    executeMSGraphAPIRequest(api: string): Promise<JSON>;
-    executeADSecureAPIRequest(api: string, clientId: string): Promise<JSON>;
-    executePublicAPIRequest(api: string): Promise<JSON>;
-}
+import { IDataFetcherService } from './IDataFetcherService'
 
 export class DataFetcherService implements IDataFetcherService {
 
     public static readonly serviceKey: ServiceKey<IDataFetcherService> = ServiceKey.create<IDataFetcherService>('mpd:IDataFetcherService', DataFetcherService);
-
+    private static _appDataFolderName: string = 'Personal Dashboard';
+    private static _appDataFileName: string = 'selected-widgets.json';
     private _msGraphClientFactory: MSGraphClientFactory;
     private _aadHttpClientFactory: AadHttpClientFactory;
     private _httpClient: HttpClient;
@@ -28,39 +22,66 @@ export class DataFetcherService implements IDataFetcherService {
         });
     }
 
-    public async getSelectedWidgets(userName: string, baseUrl: string): Promise<string> {
-        let selectWidgets: string;
-        const encodedUserName = encodeURIComponent('i:0#.f|membership|' + userName);
-        const response: SPHttpClientResponse = await this._spHttpClient.get(
-            baseUrl + "/_api/sp.userprofiles.peoplemanager/getuserprofilepropertyfor(accountName=@v,%20propertyname='SelectedApps')?@v=%27" + encodedUserName + "%27",
-            SPHttpClient.configurations.v1
-        );
-        if (response.ok) {
-            const data = await response.json();
-            selectWidgets = data.value;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private async _getAppDataFolder(): Promise<any> {
+
+        const client: MSGraphClientV3 = await this._msGraphClientFactory.getClient('3');
+        let appDataFolder = await client
+            .api(`/me/drive/special/approot/children?$filter=name eq '${DataFetcherService._appDataFolderName}'`)
+            .get();
+
+        if (appDataFolder.value.length === 0) {
+            appDataFolder = await client
+                .api(`/me/drive/special/approot/children`)
+                .post({
+                    name: DataFetcherService._appDataFolderName,
+                    folder: {},
+                    '@microsoft.graph.conflictBehavior': 'fail'
+                });
         }
-        return selectWidgets;
+        return appDataFolder;
+
     }
 
-    public async setSelectedWidgets(userName: string, baseUrl: string, ids: string[]): Promise<void> {
-        await this._spHttpClient.post(
-            baseUrl + "/_api/SP.UserProfiles.PeopleManager/SetSingleValueProfileProperty",
-            SPHttpClient.configurations.v1,
-            {
-                headers: {
-                    'Accept': 'application/json;odata=nometadata',
-                    'Content-type': 'application/json;odata=verbose',
-                    'odata-version': '',
-                },
-                body: JSON.stringify(
-                    {
-                        'accountName': `i:0#.f|membership|${userName}`,
-                        'propertyName': "SelectedApps",
-                        'propertyValue': ids.join(',')
-                    }
-                )
+    public async getMySelectedWidgets(): Promise<string | undefined> {
+        try {
+            const appDataFolder = await this._getAppDataFolder();
+            if (appDataFolder && appDataFolder.value && appDataFolder.value.length > 0) {
+                const client: MSGraphClientV3 = await this._msGraphClientFactory.getClient('3');
+                const appDataFiles = await client
+                    .api(`/me/drive/special/approot:/${appDataFolder.value[0].name}:/children?$filter=name eq '${DataFetcherService._appDataFileName}'`)
+                    .version('v1.0')
+                    .get();
+
+                if (appDataFiles.value.length > 0) {
+                    const downloadUrl = appDataFiles.value[0]['@microsoft.graph.downloadUrl'];
+                    const response = await this._httpClient.get(downloadUrl, HttpClient.configurations.v1);
+                    const selectedWidgets = await response.json();
+                    return selectedWidgets;
+                }
             }
-        );
+
+            return undefined;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    public async setMySelectedWidgets(ids: string[]): Promise<void> {
+        try {
+            const appFolder = await this._getAppDataFolder();
+            if (appFolder.value.length > 0) {
+                const client: MSGraphClientV3 = await this._msGraphClientFactory.getClient('3');
+                await client
+                    .api(`/me/drive/items/${appFolder.value[0].id}:/${DataFetcherService._appDataFileName}:/content`)
+                    .version("v1.0")
+                    .put(JSON.stringify(ids.join(',')));
+            }
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     }
 
     public async getOrgWidgets(baseUrl: string): Promise<IListItem[]> {
@@ -112,8 +133,8 @@ export class DataFetcherService implements IDataFetcherService {
             const response = await client.api(api).get();
             return response;
         } catch (error) {
-            console.log(error);
-            throw error;
+            console.error(error);
+            return error;
         }
     }
 
@@ -124,7 +145,7 @@ export class DataFetcherService implements IDataFetcherService {
             const data = await response.json();
             return data;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             throw error;
         }
     }
@@ -135,7 +156,7 @@ export class DataFetcherService implements IDataFetcherService {
             const data = await response.json();
             return data;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             throw error;
         }
     }
