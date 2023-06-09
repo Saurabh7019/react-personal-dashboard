@@ -58,7 +58,7 @@ ViewDetails | Text | No
 
 ## Contributors
 
-* [Saurabh Tripathi](https://github.com/saurabh7019
+* [Saurabh Tripathi](https://github.com/saurabh7019)
 ## Version history
 
 | Version | Date             | Comments        |
