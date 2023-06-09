@@ -14,7 +14,7 @@ Configuration:
 
 Selection:
 
-![Setting up user's personal dashboard](./assets/selection.gif)
+![Setting up user's personal dashboard](./assets/Selection.gif)
 
 ## Compatibility
 
@@ -54,7 +54,7 @@ AADClientId | Text | No
 HelpURL | Text | No
 ViewDetails | Text | No
 
-> Deploy the list using script [create-dashboard-list.ps](./scripts/create-dashboard-list.ps1)
+> Deploy the list using script [create-dashboard-list.ps1](./scripts/create-dashboard-list.ps1)
 
 ## Contributors
 
@@ -64,12 +64,6 @@ ViewDetails | Text | No
 | Version | Date             | Comments        |
 | ------- | ---------------- | --------------- |
 | 1.0     | June 9, 2023 | Initial release |
-
-## Disclaimer
-
-**THIS CODE IS PROVIDED _AS IS_ WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
-
----
 
 ## Minimal Path to Awesome
 
