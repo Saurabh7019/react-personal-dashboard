@@ -14,7 +14,7 @@ Configuration:
 
 Selection:
 
-![Setting up user's personal dashboard](./assets/Selection.gif)
+![Setting up user's personal dashboard](./assets/selection.gif)
 
 ## Compatibility
 
