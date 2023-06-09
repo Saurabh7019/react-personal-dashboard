@@ -45,6 +45,7 @@
     ],
     "validDomains": [
         "7566ava.sharepoint.com",
+        "m365x47213793.sharepoint.com",
         "*.login.microsoftonline.com"
     ]
 }

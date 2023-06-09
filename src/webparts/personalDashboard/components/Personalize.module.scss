@@ -27,17 +27,16 @@
         display: table-row;
     }
 
-    .selectable {
+    .selectable,
+    .selected {
         width: 45%;
+        border: 1px solid #ccc;
+        border-radius: 8px;
     }
 
     .selectionpanel {
         width: 10%;
         position: relative;
-    }
-
-    .selected {
-        width: 45%;
     }
 
     .selectable,
@@ -47,9 +46,7 @@
     }
 
     ul {
-        list-style: none;
-        border-radius: 3px;
-        border: 1px solid #ccc;
+        list-style: none;        
         height: 250px;
         padding: 0;
         overflow-y: auto;
@@ -57,7 +54,7 @@
 
     ul li {
         border-bottom: 1px #eee solid;
-        padding: 12px;
+        padding: 5px 12px;
         color: #555;
         font-size: 14px;
         cursor: pointer;
