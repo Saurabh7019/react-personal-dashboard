@@ -8,13 +8,13 @@ With the Personal Dashboard app, users have the flexibility to handpick and conf
 
 In action this looks like:
 
+Selection:
+
+![Setting up user's personal dashboard](./assets/selection.gif)
+
 Configuration:
 
 ![Configuring a widget with MS Graph API](./assets/Configuration.gif)
-
-Selection:
-
-![Setting up user's personal dashboard](./assets/Selection.gif)
 
 ## Compatibility
 
