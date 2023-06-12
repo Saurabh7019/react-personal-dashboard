@@ -7,7 +7,7 @@ import {
 } from 'office-ui-fabric-react/lib/Shimmer';
 import { mergeStyleSets } from 'office-ui-fabric-react/lib/Styling';
 import { ServiceScope } from '@microsoft/sp-core-library';
-import ReactHtmlParser from 'react-html-parser';
+import parser from 'html-react-parser';
 import { TemplateService } from '../services/TemplateService';
 import { DataFetcherService } from '../services/DataFetcherService';
 
@@ -105,7 +105,7 @@ export const PersonalWidgetRenderer: React.FC<IPersonalWidgetProps> = (props) =>
             <div className={`${styles.content} ${props.widget.help || props.widget.details ? '' : styles.contentWithoutFooter}`}>
                 <div className={classNames.wrapper}>
                     <Shimmer width="100%" styles={getShimmerStyles} isDataLoaded={state.isLoaded} >
-                        {ReactHtmlParser(state.results)}
+                        {parser(state.results)}
                     </Shimmer>
                 </div>
             </div>
