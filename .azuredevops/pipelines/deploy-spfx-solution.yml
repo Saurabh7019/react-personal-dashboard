@@ -1,0 +1,62 @@
+name: Deploy Solution react-personal-dashboard
+trigger:
+  branches:
+    include:
+      - main
+pool:
+  vmImage: ubuntu-latest
+variables:
+  - name: CertificateBase64Encoded
+    value: ""
+  - name: CertificateSecureFileId
+    value: ""
+  - name: CertificatePassword
+    value: ""
+  - name: EntraAppId
+    value: ""
+  - name: TenantId
+    value: ""
+  - name: SharePointBaseUrl
+    value: ""
+  - name: PackageName
+    value: react-personal-dashboard.sppkg
+stages:
+  - stage: Build_and_Deploy
+    jobs:
+      - job: Build_and_Deploy
+        steps:
+          - task: NodeTool@0
+            displayName: Use Node.js
+            inputs:
+              versionSpec: 16.x
+          - task: Npm@1
+            displayName: Run npm install
+            inputs:
+              command: install
+          - task: Gulp@0
+            displayName: Gulp bundle
+            inputs:
+              gulpFile: ./gulpfile.js
+              targets: bundle
+              arguments: --ship
+          - task: Gulp@0
+            displayName: Gulp package
+            inputs:
+              targets: package-solution
+              arguments: --ship
+          - task: Npm@1
+            displayName: Install CLI for Microsoft 365
+            inputs:
+              command: custom
+              verbose: false
+              customCommand: install -g @pnp/cli-microsoft365
+          - script: >
+              
+              m365 login --authType certificate --certificateBase64Encoded '$(CertificateBase64Encoded)' --password '$(CertificatePassword)' --appId '$(EntraAppId)' --tenant '$(TenantId)' 
+
+              m365 spo set --url '$(SharePointBaseUrl)' 
+
+              m365 spo app add --filePath '$(Build.SourcesDirectory)/sharepoint/solution/$(PackageName)' --overwrite 
+
+              m365 spo app deploy --name '$(PackageName)' --appCatalogScope 'tenant'
+            displayName: CLI for Microsoft 365 Deploy App
