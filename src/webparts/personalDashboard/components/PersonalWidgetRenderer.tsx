@@ -105,7 +105,7 @@ export const PersonalWidgetRenderer: React.FC<IPersonalWidgetProps> = (props) =>
             <div className={`${styles.content} ${props.widget.help || props.widget.details ? '' : styles.contentWithoutFooter}`}>
                 <div className={classNames.wrapper}>
                     <Shimmer width="100%" styles={getShimmerStyles} isDataLoaded={state.isLoaded} >
-                        {parser(state.results)}
+                        {parser(state.results || '')}
                     </Shimmer>
                 </div>
             </div>

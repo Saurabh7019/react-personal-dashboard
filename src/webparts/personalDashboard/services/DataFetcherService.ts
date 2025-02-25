@@ -87,10 +87,10 @@ export class DataFetcherService implements IDataFetcherService {
     public async getOrgWidgets(baseUrl: string): Promise<IListItem[]> {
         const widgets: IListItem[] = [];
         try {
-            const tenantAppCatalogUrl = await this._getTenantAppcatalogUrl(baseUrl);
+            // const tenantAppCatalogUrl = await this._getTenantAppcatalogUrl(baseUrl);
             const response: SPHttpClientResponse = await this._spHttpClient.get(
-                tenantAppCatalogUrl +
-                `/_api/web/lists/GetByTitle('Dashobard Widgets')/Items?$select=Id,WidgetTitle,IconName,AADClientId,DisplayTemplate,ErrorTemplate,ResourceEndpoint,HelpURL,ViewDetails`,
+                baseUrl +
+                `/_api/web/lists/GetByTitle('Dashobard Widgets')/Items?$select=Id,SC_WidgetTitle,SC_IconName,SC_AADClientId,SC_DisplayTemplate,SC_ErrorTemplate,SC_ResourceEndpoint,SC_HelpURL,SC_ViewDetails`,
                 SPHttpClient.configurations.v1
             );
 
@@ -99,15 +99,15 @@ export class DataFetcherService implements IDataFetcherService {
                 data.value.forEach((item) => {
                     widgets.push({
                         id: item.Id,
-                        title: item.WidgetTitle,
-                        icon: item.IconName,
-                        clientId: item.AADClientId,
-                        display: item.DisplayTemplate,
-                        error: item.ErrorTemplate,
-                        api: item.ResourceEndpoint,
+                        title: item.SC_WidgetTitle,
+                        icon: item.SC_IconName,
+                        clientId: item.SC_AADClientId,
+                        display: item.SC_DisplayTemplate,
+                        error: item.SC_ErrorTemplate,
+                        api: item.SC_ResourceEndpoint,
                         selected: false,
-                        help: item.HelpURL,
-                        details: item.ViewDetails
+                        help: item.SC_HelpURL,
+                        details: item.SC_ViewDetails
                     });
                 });
             } else {

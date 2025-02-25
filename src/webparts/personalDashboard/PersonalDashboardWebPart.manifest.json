@@ -11,7 +11,7 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
     "group": { "default": "hack-together-teams" },
-    "title": { "default": "Personal Dashboard" },
+    "title": { "default": "Personal Dashboard Isolated" },
     "description": { "default": "This web part provides users a personalized dashboard by selecting and adding organization-wide apps." },
     "officeFabricIconFontName": "ViewDashboard",
     "properties": {

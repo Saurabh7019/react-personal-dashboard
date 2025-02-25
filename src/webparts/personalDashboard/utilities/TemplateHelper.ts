@@ -6,6 +6,8 @@ export default class TemplateHelper {
         handlebars.registerHelper('log', TemplateHelper.logHelper);
         handlebars.registerHelper('dateFormat', TemplateHelper.dateFormatHelper);
         handlebars.registerHelper('isDueDatePassed', TemplateHelper.isDueDatePassedHelper);
+        handlebars.registerHelper('equalValue', TemplateHelper.equalValueHelper);
+        handlebars.registerHelper('shortDateFormat', TemplateHelper.shortDateFormatHelper);
     }
 
     public static logHelper(data: string): string {
@@ -23,5 +25,23 @@ export default class TemplateHelper {
         const dueDate = new Date(date);
         const currentDate = new Date();
         return dueDate < currentDate;
+    }
+
+    public static equalValueHelper(value1: string, value2: string): boolean {
+        return value1 === value2;
+    }
+
+    public static shortDateFormatHelper(date: string): string {
+        const formattedDate = new Date(date);
+        const options = { 
+            year: 'numeric' as 'numeric', 
+            month: 'short' as 'short', 
+            day: 'numeric' as 'numeric',
+            hour: '2-digit' as '2-digit', 
+            minute: '2-digit' as '2-digit',
+            hour12: true,
+            timeZone: 'UTC'
+          };
+          return formattedDate.toLocaleString('en-US', options);
     }
 }
