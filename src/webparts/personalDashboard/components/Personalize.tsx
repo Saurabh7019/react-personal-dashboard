@@ -6,7 +6,7 @@ import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dia
 import { ContextualMenu } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { IListItem } from '../models/IListItem';
 
-const persIcon: IIconProps = { iconName: 'Personalize' };
+const persIcon: IIconProps = { iconName: 'Personalize', style: { color: 'white', fontWeight: 'bold' } };
 
 interface IPersonalizeProps {
     widgets: IListItem[];
