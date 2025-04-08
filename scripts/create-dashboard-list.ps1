@@ -1,21 +1,12 @@
-param (
-    [Parameter(Mandatory = $true)][string]$tenantAppCatalogUrl
-)
-# Validate the url
-if ($null -eq $tenantAppCatalogUrl) {
-    Write-Host "Tenant app catalog URL is mandatory parameter. Please specify value."
+# Connect to the SharePoint tenant app catalog
+$url = Get-PnPTenantAppCatalogUrl
+if ($null -eq $url) {
+    Write-Host "Unable to retrieve the tenant app catalog URL. Please ensure you have the necessary permissions."
     return
 }
 
 # Connect to the SharePoint site
-Connect-PnPOnline -Url $tenantAppCatalogUrl -Interactive
-
-# Verify tenant app catalog URL
-$url = Get-PnPTenantAppCatalogUrl
-if ($url -ne $tenantAppCatalogUrl) {
-    Write-Host "Provided URL is not a tenant app catalog Url. Please check the URL and try again."
-    return
-}
+Connect-PnPOnline -Url $url -ClientId 6c5c98c7-e05a-4a0f-bcfa-0cfc65aa1f28 -Tenant 'contoso.onmicrosoft.com' -Thumbprint 34CFAA860E5FB8C44335A38A097C1E41EEA206AA
 
 # Apply the PnP Provisioning Template
 Invoke-PnPSiteTemplate -Path dashboard.xml
