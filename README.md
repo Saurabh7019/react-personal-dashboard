@@ -45,25 +45,20 @@ Widgets list in tenant app catalog site, with the Title "Dashboard Widgets" and 
 
 Column Internal Name|Type|Required| comments
 --------------------|----|--------|----------
-WidgetTitle | Text| Yes
-IconName | Text | No
-DisplayTemplate | Note | No
-ErrorTemplate | Note | No
-ResourceEndpoint | Text | No
-AADClientId | Text | No
-HelpURL | Text | No
-ViewDetails | Text | No
+SC_WidgetTitle | Text| Yes
+SC_IconName | Text | No
+SC_DisplayTemplate | Note | No
+SC_ErrorTemplate | Note | No
+SC_ResourceEndpoint | Text | No
+SC_AADClientId | Text | No
+SC_HelpURL | Text | No
+SC_ViewDetails | Text | No
 
 > Deploy the list using script [create-dashboard-list.ps1](./scripts/create-dashboard-list.ps1)
 
 ## Contributors
 
 * [Saurabh Tripathi](https://github.com/saurabh7019)
-## Version history
-
-| Version | Date             | Comments        |
-| ------- | ---------------- | --------------- |
-| 1.0     | June 9, 2023 | Initial release |
 
 ## Minimal Path to Awesome
 

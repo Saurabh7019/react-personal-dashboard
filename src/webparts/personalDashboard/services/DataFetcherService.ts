@@ -87,9 +87,9 @@ export class DataFetcherService implements IDataFetcherService {
     public async getOrgWidgets(baseUrl: string): Promise<IListItem[]> {
         const widgets: IListItem[] = [];
         try {
-            // const tenantAppCatalogUrl = await this._getTenantAppcatalogUrl(baseUrl);
+            const tenantAppCatalogUrl = await this._getTenantAppcatalogUrl(baseUrl);
             const response: SPHttpClientResponse = await this._spHttpClient.get(
-                baseUrl +
+                tenantAppCatalogUrl +
                 `/_api/web/lists/GetByTitle('Dashobard Widgets')/Items?$select=Id,SC_WidgetTitle,SC_IconName,SC_AADClientId,SC_DisplayTemplate,SC_ErrorTemplate,SC_ResourceEndpoint,SC_HelpURL,SC_ViewDetails`,
                 SPHttpClient.configurations.v1
             );

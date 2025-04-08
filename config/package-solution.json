@@ -14,12 +14,6 @@
       "termsOfUseUrl": "",
       "mpnId": "Undefined-1.17.1"
     },
-    "webApiPermissionRequests": [
-      {
-        "resource": "Microsoft Graph",
-        "scope": "Files.ReadWrite.All"
-      }
-    ],
     "metadata": {
       "shortDescription": {
         "default": "Personal Dashboard"

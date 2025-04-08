@@ -7,7 +7,6 @@ import {
 } from '@fluentui/react/lib/Shimmer';
 import { mergeStyleSets } from '@fluentui/react/lib/Styling';
 import { ServiceScope } from '@microsoft/sp-core-library';
-// import parser from 'html-react-parser';
 import { TemplateService } from '../services/TemplateService';
 import { DataFetcherService } from '../services/DataFetcherService';
 import * as dompurify from 'dompurify';
