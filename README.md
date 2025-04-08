@@ -39,6 +39,16 @@ Configuration:
 
 > Get your own free development tenant by subscribing to [Microsoft 365 developer program](http://aka.ms/o365devprogram)
 
+## Contributors
+
+* [Saurabh Tripathi](https://github.com/saurabh7019)
+
+## Version history
+
+|Version|Date|Comments|
+|-------|----|--------|
+|1.0|April 8, 2025|Initial release|
+
 ## Prerequisites
 
 Widgets list in tenant app catalog site, with the Title "Dashboard Widgets" and the below columns:
@@ -55,10 +65,6 @@ SC_HelpURL | Text | No
 SC_ViewDetails | Text | No
 
 > Deploy the list using script [create-dashboard-list.ps1](./scripts/create-dashboard-list.ps1)
-
-## Contributors
-
-* [Saurabh Tripathi](https://github.com/saurabh7019)
 
 ## Minimal Path to Awesome
 
@@ -84,13 +90,21 @@ This app illustrates the following concepts on top of the SharePoint Framework:
 - Utilizes handlebars templates for visually appealing UI without complex deployment
 - Easy customization of templates to adapt to different data formats
 
-## References
+## Help
 
-- [Getting started with SharePoint Framework](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
-- [Building for Microsoft teams](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/build-for-teams-overview)
-- [Use Microsoft Graph in your solution](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/using-microsoft-graph-apis)
-- [Publish SharePoint Framework applications to the Marketplace](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/publish-to-marketplace-overview)
-- [Microsoft 365 Patterns and Practices](https://aka.ms/m365pnp) - Guidance, tooling, samples and open-source controls for your Microsoft 365 development
+We do not support samples, but this community is always willing to help, and we want to improve these samples. We use GitHub to track issues, which makes it easy for  community members to volunteer their time and help resolve issues.
+
+If you're having issues building the solution, please run [spfx doctor](https://pnp.github.io/cli-microsoft365/cmd/spfx/spfx-doctor/) from within the solution folder to diagnose incompatibility issues with your environment.
+
+You can try looking at [issues related to this sample](https://github.com/pnp/sp-dev-fx-webparts/issues?q=label%3A%22sample%3A%20react-personal-dashboard%22) to see if anybody else is having the same issues.
+
+You can also try looking at [discussions related to this sample](https://github.com/pnp/sp-dev-fx-webparts/discussions?discussions_q=react-personal-dashboard) and see what the community is saying.
+
+If you encounter any issues using this sample, [create a new issue](https://github.com/pnp/sp-dev-fx-webparts/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected%2Csample%3A%20react-personal-dashboard&template=bug-report.yml&sample=react-personal-dashboard&authors=@saurabh7019&title=react-personal-dashboard%20-%20).
+
+For questions regarding this sample, [create a new question](https://github.com/pnp/sp-dev-fx-webparts/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Aquestion%2Csample%3A%20react-personal-dashboard&template=question.yml&sample=react-personal-dashboard&authors=@saurabh7019&title=react-personal-dashboard%20-%20).
+
+Finally, if you have an idea for improvement, [make a suggestion](https://github.com/pnp/sp-dev-fx-webparts/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Aenhancement%2Csample%3A%20react-personal-dashboard&template=suggestion.yml&sample=react-personal-dashboard&authors=@saurabh7019&title=react-personal-dashboard%20-%20).
 
 ## Disclaimer
 
