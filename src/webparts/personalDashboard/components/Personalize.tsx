@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styles from './Personalize.module.scss';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { DefaultButton, PrimaryButton, ActionButton, IIconProps } from 'office-ui-fabric-react';
-import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
-import { ContextualMenu } from 'office-ui-fabric-react/lib/ContextualMenu';
+import { Icon } from '@fluentui/react/lib/Icon';
+import { DefaultButton, PrimaryButton, ActionButton, IIconProps } from '@fluentui/react';
+import { Dialog, DialogType, DialogFooter } from '@fluentui/react/lib/Dialog';
+import { ContextualMenu } from '@fluentui/react/lib/ContextualMenu';
 import { IListItem } from '../models/IListItem';
 
 const persIcon: IIconProps = { iconName: 'Personalize', style: { color: 'white', fontWeight: 'bold' } };
@@ -81,7 +81,7 @@ export const Personalize: React.FC<IPersonalizeProps> = (props) => {
         saveSelection(ids)
             .then(() => {
                 _closeDialog();
-            }).catch((err) => {
+            }).catch(() => {
                 _showDialog();
             });
     }, [selectedWidgets, saveSelection, _closeDialog, _showDialog]);

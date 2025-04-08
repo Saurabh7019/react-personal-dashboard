@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './PersonalDashboard.module.scss';
-import { initializeIcons } from 'office-ui-fabric-react';
+import { initializeIcons } from '@fluentui/react';
 import { IPersonalDashboardProps } from './IPersonalDashboardProps';
 import { IPersonalDashboardState } from './IPersonalDashboardState';
 import { DataFetcherService } from '../services/DataFetcherService';

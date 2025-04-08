@@ -34,11 +34,11 @@ export default class TemplateHelper {
     public static shortDateFormatHelper(date: string): string {
         const formattedDate = new Date(date);
         const options = { 
-            year: 'numeric' as 'numeric', 
-            month: 'short' as 'short', 
-            day: 'numeric' as 'numeric',
-            hour: '2-digit' as '2-digit', 
-            minute: '2-digit' as '2-digit',
+            year: 'numeric' as const, 
+            month: 'short' as const, 
+            day: 'numeric' as const,
+            hour: '2-digit' as const, 
+            minute: '2-digit' as const,
             hour12: true,
             timeZone: 'UTC'
           };

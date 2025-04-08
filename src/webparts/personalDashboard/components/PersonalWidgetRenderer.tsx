@@ -1,16 +1,17 @@
 import * as React from 'react';
 import styles from './PersonalDashboard.module.scss';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import { Icon } from '@fluentui/react/lib/Icon';
 import { IListItem } from '../models/IListItem';
 import {
     Shimmer,
-} from 'office-ui-fabric-react/lib/Shimmer';
-import { mergeStyleSets } from 'office-ui-fabric-react/lib/Styling';
+} from '@fluentui/react/lib/Shimmer';
+import { mergeStyleSets } from '@fluentui/react/lib/Styling';
 import { ServiceScope } from '@microsoft/sp-core-library';
 // import parser from 'html-react-parser';
 import { TemplateService } from '../services/TemplateService';
 import { DataFetcherService } from '../services/DataFetcherService';
-import * as DOMPurify from 'dompurify';
+import * as dompurify from 'dompurify';
+const purifier = dompurify['default'] as dompurify.DOMPurify;
 
 interface IPersonalWidgetProps {
     widget: IListItem;
@@ -107,7 +108,7 @@ export const PersonalWidgetRenderer: React.FC<IPersonalWidgetProps> = (props) =>
                 <div className={classNames.wrapper}>
                     <Shimmer width="100%" styles={getShimmerStyles} isDataLoaded={state.isLoaded} >
                         {/* {parser(state.results || '')} */}
-                        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(state.results || '') }} />
+                        <div dangerouslySetInnerHTML={{ __html: purifier.sanitize(state.results || '') }} />
                     </Shimmer>
                 </div>
             </div>

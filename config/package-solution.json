@@ -3,7 +3,7 @@
   "solution": {
     "name": "Personal Dashboard",
     "id": "9973f73a-25d0-4ce7-8a61-27238f09eac9",
-    "version": "1.0.0.1",
+    "version": "1.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
