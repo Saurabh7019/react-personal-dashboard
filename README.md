@@ -8,6 +8,10 @@ With the Personal Dashboard app, users have the flexibility to handpick and conf
 
 In action this looks like:
 
+Dashboard:
+
+![Dashboard view](./assets/Dashboard.PNG)
+
 Selection:
 
 ![Setting up user's personal dashboard](./assets/selection.gif)
@@ -109,3 +113,5 @@ Finally, if you have an idea for improvement, [make a suggestion](https://github
 ## Disclaimer
 
 **THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
+
+<img src="https://m365-visitor-stats.azurewebsites.net/sp-dev-fx-webparts/samples/react-personal-dashboard" />
