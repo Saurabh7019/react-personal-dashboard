@@ -11,7 +11,6 @@ export default class TemplateHelper {
     }
 
     public static logHelper(data: string): string {
-        // console.log(data);
         const jsonString = JSON.stringify(data, null, 2);
         return jsonString;
     }

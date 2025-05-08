@@ -23,6 +23,7 @@ export default class PersonalDashboard extends React.Component<IPersonalDashboar
       selectedWidgets: [],
       widgets: []
     };
+
     this._apiServiceInstance = new DataFetcherService(serviceScope);
   }
 
@@ -149,6 +150,7 @@ export default class PersonalDashboard extends React.Component<IPersonalDashboar
 
   private _moveLeft = (): void => {
     const widget: IListItem = this.state.selectedWidgets[this._selectedIndex];
+    
     this.setState({
       widgets: [...this.state.widgets, {
         id: widget.id.toString(),
