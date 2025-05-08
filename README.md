@@ -10,7 +10,7 @@ In action this looks like:
 
 Dashboard:
 
-![Dashboard view](./assets/Dashboard.PNG)
+![Dashboard view](./assets/Dashboard.png)
 
 Selection:
 
